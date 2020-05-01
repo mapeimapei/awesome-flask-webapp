@@ -16,6 +16,7 @@ beautifulsoup4 = "*"
 flask-cache = "*"
 flask-cookies = "*"
 openpyxl = "*"
+cymysql = "*"
 
 [requires]
 python_version = "3.8"
