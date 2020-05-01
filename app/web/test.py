@@ -28,10 +28,39 @@ def get_session():
 
     return session
 
+def get_blog_data2():
+    session = get_session()
+
+    sql = 'select id,name,summary,content,created_at,user_name from blogs order by created_at desc'
+
+    print(f'sql:{sql}')
+    try:
+        resultproxy = session.execute(
+            text(sql)
+        )
+    except Exception as e:
+        print(e)
+        res_rows = []
+    else:
+        res_rows = resultproxy.fetchall()
+        session.close()
+
+    result = [dict(zip(result.keys(), result)) for result in res_rows]
+
+    for row in result:
+        row["created_at"] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(row["created_at"]))
+
+    print(result)
+    return result
+
+@web.route("/demoindex")
+def demoindex():
+    result = get_blog_data2()
+    return render_template('index.html', blogData=result)
+
+
 def get_cart_list(user_id):
     session = get_session()
-    sql = "select name,email from users"
-
     sql = """
         SELECT c.productid,c.quantity,p.category, p.image,p.descn,p.listprice,p.cname from cart c,products p WHERE c.productid = p.productid AND c.userid  = :user_id
         """
@@ -39,7 +68,8 @@ def get_cart_list(user_id):
     print(f'sql:{sql}')
     try:
         resultproxy = session.execute(
-            text(sql), {"user_id": user_id}
+            text(sql),
+            {"user_id": user_id}
         )
     except Exception as e:
         print(e)
@@ -86,9 +116,7 @@ def get_user_data():
     sql = "select name,email from users"
     print(f'sql:{sql}')
     try:
-        resultproxy = session.execute(
-            text(sql)
-        )
+        resultproxy = session.execute(text(sql))
     except Exception as e:
         print(e)
         res_rows = []

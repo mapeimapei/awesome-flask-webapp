@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__author__ = '七月'
+__author__ = '带土'
 
 
 SQLALCHEMY_DATABASE_URI ='mysql+pymysql://root:mapei123@127.0.0.1:3306/awesome'
