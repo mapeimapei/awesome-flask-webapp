@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %} {% endblock %} - Awesome Python Webapp</title>
+{% block meta %}<!-- block meta  -->{% endblock %}
+{% include '__head__.html' %}
+{% block beforehead %}<!-- before head  -->{% endblock %}
+</head>
+<body>
+<div id="wrapper">
+
+<div id="topArea">
+	<div class="center clx">
+		<a href="javascript:" class="mobileMenu_toggle fa fa-navicon  fa-2x" id="J_mobileMenu_toggle"></a>
+        <nav id="menuPrimary" class="clx">
+            <ul id="access" class="clx">
+                <li><a href="/">首页</a></li>
+                <li><a href="#">一级菜单</a></li>
+                <li><a href="#">一级菜单</a></li>
+                <li><a href="#">一级菜单</a></li>
+            </ul><!--navList end-->
+			 <form name="formsearch" method="get" id="searchBox">
+				<input type="text" name="" class="searchInput"  placeholder="Search…" >
+				<a href="#" class="search_toggle fa fa-search" id="J_search_toggle"></a>		
+			</form>
+			<div class="loginReg">
+				<a href="/register">注 册</a> |
+				<a href="/admin">登 录</a>
+			</div>
+    	</nav><!--menuPrimary end-->
+		
+	</div><!--center end-->
+</div><!--topArea end-->
+
+
+
+<div id="container">
+	<div class="center">
+
+    	<header id="webmaster">
+            <img class="avatar" src="../static/images/avatar.jpeg">
+        	<h1 id="siteTitle" class="">
+            	<a href="#">site title</a>
+            </h1>
+        	<h2 id="siteDescription" class="gary t16 italic pt5 pb5">网站的描述</h2>
+        	<ul id="menuSocial" class="clx">
+            	<li><a href="#" class="twitter fa fa-twitter"><span class="text">Twitter</span></a></li>
+            	<li><a href="#" class="facebook fa fa-facebook-official"><span class="text">facebook</span></a></li>
+            	<li><a href="#" class="googlePlus fa fa-google-plus-square"><span class="text">googlePlus</span></a></li>
+				<li><a href="#" class="wordpress fa fa-wordpress"><span class="text">wordpress</span></a></li>
+                <li><a href="#" class="qq fa fa-qq"><span class="text">QQ</span></a></li>
+                <li><a href="#" class="weibo fa fa-weibo"><span class="text">weibo</span></a></li>
+                <li><a href="#" class="weixin fa fa-weixin"><span class="text">weixin</span></a></li>
+            </ul>
+        </header>
+    
+    	<section id="content">
+            <!-- content -->
+            {% block content %}{% endblock %}
+            <!-- // content -->
+        </section><!--content end-->
+    </div><!--center end-->
+</div><!--container end-->
+
+
+{% include '__footer__.html' %}
+</div><!--wrapper end-->
+
+</body>
+</html>
+

@@ -1,0 +1,21 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+falsk = "*"
+flask = "*"
+flask-sqlalchemy = "*"
+flask-session = "*"
+pymysql = "*"
+requests = "*"
+beautifulsoup4 = "*"
+flask-cache = "*"
+flask-cookies = "*"
+openpyxl = "*"
+
+[requires]
+python_version = "3.8"
