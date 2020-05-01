@@ -1,18 +1,119 @@
 import time
 
-from flask import jsonify
-
-from flask import render_template, flash, request
+from flask import render_template, flash, request, jsonify
 import pymysql
-import logging;
+import logging
+
+from ..secure import SQLALCHEMY_DATABASE_URI
 
 logging.basicConfig(level=logging.DEBUG)
 
 from . import web
 
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
+
+
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine, text, Integer, Float
 
 __author__ = "带土"
+
+
+def get_session():
+    engine = create_engine(SQLALCHEMY_DATABASE_URI, pool_size=10, pool_recycle=7200,
+                           pool_pre_ping=True, encoding='utf-8')
+
+    session_factory = sessionmaker(bind=engine)
+    session = session_factory()
+
+    return session
+
+def get_cart_list(user_id):
+    session = get_session()
+    sql = "select name,email from users"
+
+    sql = """
+        SELECT c.productid,c.quantity,p.category, p.image,p.descn,p.listprice,p.cname from cart c,products p WHERE c.productid = p.productid AND c.userid  = :user_id
+        """
+
+    print(f'sql:{sql}')
+    try:
+        resultproxy = session.execute(
+            text(sql), {"user_id": user_id}
+        )
+    except Exception as e:
+        print(e)
+        res_rows = []
+    else:
+        res_rows = resultproxy.fetchall()
+        session.close()
+
+    result = [dict(zip(result.keys(), result)) for result in res_rows]
+    print(result)
+    return result
+
+@web.route("/api/demoGetCartList", methods=['POST'])
+def demoGetCartList():
+    user_id = request.form["user_id"]
+    obj = {}
+    try:
+        obj["resultCode"] = "20000"
+        obj["message"] = "ok"
+        obj["result"] = get_cart_list(user_id)
+    except BaseException as e:
+        obj["resultCode"] = "00000"
+        obj["message"] = "faild"
+        obj["result"] = null
+
+    return obj
+
+
+@web.route("/api/demoPost", methods=['POST'])
+def demoPost():
+    name = request.form["name"]
+    id = request.form['id']
+
+    print(name, id)
+    obj = {
+        "name":name,
+        "id":id
+    }
+    return obj
+
+
+def get_user_data():
+    session = get_session()
+    sql = "select name,email from users"
+    print(f'sql:{sql}')
+    try:
+        resultproxy = session.execute(
+            text(sql)
+        )
+    except Exception as e:
+        print(e)
+        res_rows = []
+    else:
+        res_rows = resultproxy.fetchall()
+        session.close()
+
+    result = [dict(zip(result.keys(), result)) for result in res_rows]
+    print(result)
+    return result
+
+
+@web.route('/demoUsers')
+def demoUsers() -> object:
+    obj = {}
+    try:
+        obj["resultCode"] = "20000"
+        obj["message"] = "ok"
+        obj["result"] = get_user_data()
+    except BaseException as e:
+        obj["resultCode"] = "00000"
+        obj["message"] = "faild"
+        obj["result"] = null
+
+    return obj
 
 
 def get_blog_data():
