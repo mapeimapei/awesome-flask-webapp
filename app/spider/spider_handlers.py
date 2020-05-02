@@ -9,10 +9,11 @@ from flask import render_template, flash, request, jsonify, url_for, redirect
 
 __author__ = "带土"
 
+
 @spider.route("/startSpider", methods=["POST"])
 def startSpider():
-    spider = Spider()
-    count = spider.spiderMain()
+    _spider = Spider()
+    count = _spider.spiderMain()
     obj = {
         "resultCode": "20000",
         "message": f"网络爬虫收获{count}条数据。",

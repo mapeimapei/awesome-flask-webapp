@@ -1,10 +1,10 @@
 """用户模型库"""
-import time, logging,uuid
+import time, logging, uuid
 
-logging.basicConfig(level=logging.DEBUG)
 from sqlalchemy import text
 from app.models.base import Base
 
+logging.basicConfig(level=logging.DEBUG)
 __author__ = "带土"
 
 
@@ -20,7 +20,7 @@ class User(Base):
         try:
             resultProxy = self.session.execute(text(sql), args)
             res_row = resultProxy.fetchone()
-            print("res_row",res_row)
+            print("res_row", res_row)
             if res_row:
                 fields['id'] = res_row[0]
                 fields['name'] = res_row[1]
@@ -45,7 +45,7 @@ class User(Base):
             cursor = self.engine.execute(sql, args)
             self.session.commit()
             affectedCount = cursor.rowcount
-            logging.info("影响的数据行数{0}".format(affectedCount))
+            logging.info(f"影响的数据行数{affectedCount}")
         except Exception as e:
             print(e)
         finally:

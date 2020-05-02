@@ -1,10 +1,8 @@
 '''
 shop 处理器
 '''
-import datetime
-import json, time
-import uuid
 
+import json, time, datetime, uuid
 from . import shop
 from ..libs.util import next_id
 from ..models.pet_shop_handlers import Shop
@@ -19,7 +17,7 @@ __author__ = "带土"
 def deleteProductInOrderDetails():
     args = json.loads(request.data)
     _shop = Shop()
-    obj = {}
+    obj = dict()
     try:
         result = _shop.delete_product_in_order_details(args)
         if result > 0:
@@ -44,7 +42,7 @@ def deleteProductInOrderDetails():
 def getOrdersDetailsById():
     args = json.loads(request.data)
     _shop = Shop()
-    obj = {}
+    obj = dict()
     try:
         result = _shop.get_orders_details_by_id(args)
         if result:
@@ -69,7 +67,7 @@ def getOrdersDetailsById():
 def deleteOrder():
     args = json.loads(request.data)
     _shop = Shop()
-    obj = {}
+    obj = dict()
     try:
         result = _shop.delete_order(args)
         if result > 0:
@@ -95,7 +93,7 @@ def getOrderList(userid):
     _shop = Shop()
     result = _shop.get_order_list(userid)
     print(result)
-    obj = {}
+    obj = dict()
     try:
         if result:
             obj["resultCode"] = "20000"
@@ -117,16 +115,17 @@ def getOrderList(userid):
 @shop.route("/addOrder", methods=["POST"])
 def addOrder():
     args = json.loads(request.data)
-    args["orderid"] = str(uuid.uuid4().hex)
-    args["orderdate"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    args["status"] = 0
     args["amount"] = 0
     for item in args["productList"]:
         args["amount"] += item["listprice"] * item["quantity"]
 
-    print("1", args)
+    args["orderid"] = str(uuid.uuid4().hex)
+    args["orderdate"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    args["status"] = 0
+    args["productList"] = json.dumps(args["productList"])
+
     _shop = Shop()
-    obj = {}
+    obj = dict()
     try:
         result = _shop.add_order(args)
         if result > 0:
@@ -151,7 +150,7 @@ def addOrder():
 def deleteCart():
     args = json.loads(request.data)
     _shop = Shop()
-    obj = {}
+    obj = dict()
     try:
         result = _shop.delete_cart(args)
         if result > 0:
@@ -177,7 +176,7 @@ def deleteCart():
 def getCartList(userid):
     _shop = Shop()
     result = _shop.get_cart_list(userid)
-    obj = {}
+    obj = dict()
     try:
         if result:
             obj["resultCode"] = "20000"
@@ -200,7 +199,7 @@ def getCartList(userid):
 def addCart():
     args = json.loads(request.data)
     _shop = Shop()
-    obj = {}
+    obj = dict()
     try:
         result = _shop.add_cart(args)
         if result == 1:
@@ -225,7 +224,7 @@ def addCart():
 def getProducts():
     _shop = Shop()
     result = _shop.products_findall()
-    obj = {}
+    obj = dict()
     if result:
         obj["resultCode"] = "20000"
         obj["message"] = "ok"

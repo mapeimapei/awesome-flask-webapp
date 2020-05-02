@@ -1,4 +1,6 @@
-'''pass'''
+'''
+blog的视图函数
+'''
 from . import web
 from ..models.blog_handlers import BlogList
 from flask import render_template, flash, request, jsonify, url_for, redirect

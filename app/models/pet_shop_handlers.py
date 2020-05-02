@@ -1,10 +1,9 @@
 """商店模型库"""
 import time, datetime, json, decimal, logging
-
-logging.basicConfig(level=logging.DEBUG)
 from sqlalchemy import text
 from app.models.base import Base
 
+logging.basicConfig(level=logging.DEBUG)
 __author__ = "带土"
 
 
@@ -12,6 +11,7 @@ class Shop(Base):
     def __init__(self):
         super().__init__()
 
+    # 删除订单中的商品
     def delete_product_in_order_details(self, args):
         affectedCount = 0
         try:
@@ -36,12 +36,11 @@ class Shop(Base):
         try:
             resultProxy = self.session.execute(text(sql), args)
             result_set = resultProxy.fetchall()
-
             orderObj["orderlist"] = []
             orderObj["amount"] = 0
             # 4. 提取结果集
             for row in result_set:
-                obj = {}
+                obj = dict()
                 obj['orderid'] = row[0]
                 obj['orderdate'] = row[1]
                 obj['status'] = row[2]
@@ -55,7 +54,6 @@ class Shop(Base):
                 obj['listprice'] = row[10]
                 orderObj["orderlist"].append(obj)
                 orderObj["amount"] += row[10] * row[5]
-
         except Exception as e:
             logging.debug(f"查询所有订单信息失败 {e}")
         finally:
@@ -90,7 +88,7 @@ class Shop(Base):
             resultProxy = self.session.execute(sql)
             result_set = resultProxy.fetchall()
             for row in result_set:
-                obj = {}
+                obj = dict()
                 obj['orderid'] = row[0]
                 obj['orderdate'] = row[1]
                 obj['status'] = row[2]
@@ -106,14 +104,12 @@ class Shop(Base):
     def add_order(self, args):
         userid = args["userid"]
         valStr = ""
-        productList = args["productList"]
+        productList = json.loads(args["productList"])
         productLists = []
         for item in productList:
             productLists.append(item["productid"])
             valStr += f',(\'{args["orderid"]}\',\'{item["productid"]}\',\'{item["quantity"]}\')'
-
         affectedCount = 0
-
         try:
 
             # 删除购物车的对应数据
@@ -123,8 +119,7 @@ class Shop(Base):
 
             # 插入订单数据
             sql = 'insert INTO orders (orderid,userid,orderdate,status,amount) VALUES ' \
-                  '(%(orderid)s,%(userid)s,%(orderdate)s,%(status)d,%(amount)d)'
-
+                  '(%(orderid)s,%(userid)s,%(orderdate)s,%(status)s,%(amount)s)'
             self.engine.execute(sql, args)
 
             # 插入订单详情数据
@@ -134,8 +129,7 @@ class Shop(Base):
 
             self.session.commit()
             affectedCount = cursor.rowcount
-            logging.info("影响的数据行数{0}".format(affectedCount))
-
+            logging.info(f"影响的数据行数{affectedCount}")
         except BaseException as e:
             logging.debug(f"生成订单失败 {e}")
         finally:
@@ -154,7 +148,7 @@ class Shop(Base):
 
             self.session.commit()
             affectedCount = cursor.rowcount
-            logging.info("影响的数据行数{0}".format(affectedCount))
+            logging.info(f"影响的数据行数{affectedCount}")
 
         except BaseException as e:
             logging.debug(f"删除购物车失败 {e}")
@@ -184,10 +178,7 @@ class Shop(Base):
             sql = 'select * from cart WHERE userid = :userid AND productid = :productid'
             resultProxy = self.session.execute(
                 text(sql),
-                {
-                    "userid": args["userid"],
-                    "productid": args["productid"]
-                }
+                args
             )
             res_row = resultProxy.fetchone()
             sql2 = ""
@@ -203,7 +194,7 @@ class Shop(Base):
             cursor = self.engine.execute(sql2, args)
             self.session.commit()
             affectedCount = cursor.rowcount
-            logging.info("影响的数据行数{0}".format(affectedCount))
+            logging.info(f"影响的数据行数{affectedCount}")
         except BaseException as e:
             logging.debug(f"插入文章失败 {e}")
 
@@ -220,7 +211,7 @@ class Shop(Base):
             resultProxy = self.session.execute(sql)
             res_rows = resultProxy.fetchall()
             for row in res_rows:
-                product = {}
+                product = dict()
                 product['productid'] = row[0]
                 product['category'] = row[1]
                 product['cname'] = row[2]

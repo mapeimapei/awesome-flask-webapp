@@ -1,10 +1,9 @@
 """blog 模型库"""
 import time, logging
-
-logging.basicConfig(level=logging.DEBUG)
 from sqlalchemy import text
 from app.models.base import Base
 
+logging.basicConfig(level=logging.DEBUG)
 __author__ = "带土"
 
 
@@ -13,14 +12,14 @@ class BlogList(Base):
         super().__init__()
 
     # 删除文章
-    def delete_single_data(self,args):
+    def delete_single_data(self, args):
         sql = 'DELETE from blogs WHERE id = %(id)s AND user_id = %(user_id)s'
         affectedCount = 0
         try:
             cursor = self.engine.execute(sql, args)
             self.session.commit()
             affectedCount = cursor.rowcount
-            logging.info("影响的数据行数{0}".format(affectedCount))
+            logging.info(f"影响的数据行数{affectedCount}")
         except Exception as e:
             logging.debug(f"删除文章失败 {e}")
         finally:
@@ -38,25 +37,25 @@ class BlogList(Base):
             if res_row:
                 # 更新文章
                 sql2 = 'update blogs set ' \
-                      'user_name = %(user_name)s,' \
-                      'user_id = %(user_id)s,' \
-                      'user_image = %(user_image)s,' \
-                      'name = %(name)s,' \
-                      'summary = %(summary)s,' \
-                      'content = %(content)s,' \
-                      'created_at = %(created_at)s' \
-                      ' WHERE id = %(post_id)s'
+                       'user_name = %(user_name)s,' \
+                       'user_id = %(user_id)s,' \
+                       'user_image = %(user_image)s,' \
+                       'name = %(name)s,' \
+                       'summary = %(summary)s,' \
+                       'content = %(content)s,' \
+                       'created_at = %(created_at)s' \
+                       ' WHERE id = %(post_id)s'
             else:
                 # 添加文章
                 sql2 = 'insert into blogs ' \
-                      '(id,user_id,user_name,user_image,name,summary,content,created_at)' \
-                      'VALUES (%(post_id)s,%(user_id)s,%(user_name)s,%(user_image)s,%(name)s,%(summary)s,%(content)s,' \
-                      '%(created_at)s) '
+                       '(id,user_id,user_name,user_image,name,summary,content,created_at)' \
+                       'VALUES (%(post_id)s,%(user_id)s,%(user_name)s,%(user_image)s,%(name)s,%(summary)s,%(content)s,' \
+                       '%(created_at)s) '
 
             cursor = self.engine.execute(sql2, args)
             self.session.commit()
             affectedCount = cursor.rowcount
-            logging.info("影响的数据行数{0}".format(affectedCount))
+            logging.info(f"影响的数据行数{affectedCount}")
         except BaseException as e:
             logging.debug(f"插入文章失败 {e}")
 

@@ -1,18 +1,15 @@
 """爬虫模型库"""
-import time, logging, uuid
+import re, time, logging, uuid, pymysql
 
-import pymysql
-
-logging.basicConfig(level=logging.DEBUG)
 from sqlalchemy import text
 from app.models.base import Base
 import threading
 import urllib.request
 from bs4 import BeautifulSoup
-import re
 from ..libs.util import next_id
 from ..models.blog_handlers import BlogList
 
+logging.basicConfig(level=logging.DEBUG)
 
 __author__ = "带土"
 
@@ -132,7 +129,7 @@ class Spider(Base):
                 # 3 执行sql操作
                 sql = 'update blogs set content = "{0}" WHERE content = "{1}"'.format(obj["content"], obj["url"])
                 affectedcount = cursor.execute(sql)
-                logging.info("影响的数据行数{0}".format(affectedcount))
+                logging.info(f"影响的数据行数{affectedCount}")
                 # 4 提交数据库事务
                 connection.commit()
         except pymysql.DatabaseError as error:
@@ -200,7 +197,7 @@ class Spider(Base):
                 print("sql", sql)
 
                 affectedcount = cursor.execute(sql)
-                logging.info("影响的数据行数{0}".format(affectedcount))
+                logging.info(f"影响的数据行数{affectedCount}")
                 # 4 提交数据库事务
                 connection.commit()
         except pymysql.DatabaseError as error:
