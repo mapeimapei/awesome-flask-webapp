@@ -1,4 +1,4 @@
-"""定义基类"""
+"""爬虫模型库"""
 import time, logging, uuid
 
 import pymysql
@@ -11,7 +11,7 @@ import urllib.request
 from bs4 import BeautifulSoup
 import re
 from ..libs.util import next_id
-from ..models.blog_list_handlers import BlogList
+from ..models.blog_handlers import BlogList
 
 
 __author__ = "带土"

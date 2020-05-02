@@ -4,19 +4,21 @@ user handlers
 from . import web
 from ..libs.util import next_id
 from ..models.user_handlers import User
-from flask import render_template,flash, request, jsonify,url_for,redirect
+from flask import render_template, flash, request, jsonify, url_for, redirect
 import time, logging
-logging.basicConfig(level=logging.DEBUG)
 
+logging.basicConfig(level=logging.DEBUG)
 
 __author__ = "带土"
 
-#这里需要优化
+
+# 这里需要优化
 @web.route("/register")
 def register():
     return render_template('register.html')
 
-@web.route("/api/register",methods=["POST"])
+
+@web.route("/api/register", methods=["POST"])
 def api_register():
     obj = {}
     obj["name"] = request.form['name'].strip()
@@ -35,4 +37,3 @@ def api_register():
         return redirect(url_for("web.index"))
     else:
         return redirect(url_for('web.page404'))
-

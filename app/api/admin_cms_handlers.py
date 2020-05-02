@@ -5,7 +5,7 @@ import json, time
 
 from . import api
 from ..libs.util import next_id
-from ..models.blog_list_handlers import BlogList
+from ..models.blog_handlers import BlogList
 from ..models.user_handlers import User
 
 from flask import render_template, flash, request, jsonify, url_for, redirect

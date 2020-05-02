@@ -1,4 +1,4 @@
-"""定义基类"""
+"""blog 模型库"""
 import time, logging
 
 logging.basicConfig(level=logging.DEBUG)
@@ -21,10 +21,10 @@ class BlogList(Base):
             self.session.commit()
             affectedCount = cursor.rowcount
             logging.info("影响的数据行数{0}".format(affectedCount))
-            cursor.close()
         except Exception as e:
             logging.debug(f"删除文章失败 {e}")
         finally:
+            self.session.close()
             return affectedCount
 
     # 插入文章
@@ -57,11 +57,11 @@ class BlogList(Base):
             self.session.commit()
             affectedCount = cursor.rowcount
             logging.info("影响的数据行数{0}".format(affectedCount))
-            cursor.close()
         except BaseException as e:
             logging.debug(f"插入文章失败 {e}")
 
         finally:
+            self.session.close()
             return affectedCount
 
     # 根据ID获取文章详情
@@ -87,11 +87,8 @@ class BlogList(Base):
     # blog文章列表数据
     def get_single_list(self):
         sql = 'select id,name,summary,content,created_at,user_name from blogs order by created_at desc'
-        print(f'sql:{sql}')
         try:
-            resultProxy = self.session.execute(
-                text(sql)
-            )
+            resultProxy = self.session.execute(sql)
         except Exception as e:
             print(e)
             res_rows = []

@@ -1,4 +1,4 @@
-"""定义基类"""
+"""用户模型库"""
 import time, logging,uuid
 
 logging.basicConfig(level=logging.DEBUG)
@@ -46,11 +46,10 @@ class User(Base):
             self.session.commit()
             affectedCount = cursor.rowcount
             logging.info("影响的数据行数{0}".format(affectedCount))
-            cursor.close()
         except Exception as e:
             print(e)
         finally:
-            # cursor.close()
+            self.session.close()
             pass
 
         return affectedCount
