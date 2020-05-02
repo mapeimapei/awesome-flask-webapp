@@ -1,4 +1,6 @@
-'''pass'''
+'''
+user handlers
+'''
 from . import web
 from ..libs.util import next_id
 from ..models.user_handlers import User
@@ -9,6 +11,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 __author__ = "带土"
 
+#这里需要优化
 @web.route("/register")
 def register():
     return render_template('register.html')
@@ -29,7 +32,7 @@ def api_register():
     user = User()
     result = user.insert_register_data(obj)
     if result > 0:
-        return redirect(url_for(".index"))
+        return redirect(url_for("web.index"))
     else:
-        return redirect(url_for('.page404'))
+        return redirect(url_for('web.page404'))
 

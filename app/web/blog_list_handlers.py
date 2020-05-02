@@ -8,9 +8,11 @@ logging.basicConfig(level=logging.DEBUG)
 
 __author__ = "带土"
 
+
 @web.route('/404')
 def page404():
     return render_template('404.html')
+
 
 @web.route("/")
 def index():
@@ -26,7 +28,9 @@ def single(id):
     if result:
         return render_template('single.html', singleData=result)
     else:
-        return redirect(url_for('.page404'))
+        return redirect(url_for('web.page404'))
 
 
-
+@web.route('/admin')
+def admin():
+    return render_template('admin.html')
