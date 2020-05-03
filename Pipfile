@@ -18,6 +18,9 @@ flask-cookies = "*"
 openpyxl = "*"
 cymysql = "*"
 contextlib = "*"
+wtforms = "*"
+login-manager = "*"
+flask-login = "*"
 
 [requires]
 python_version = "3.8"

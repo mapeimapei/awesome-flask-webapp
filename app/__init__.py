@@ -5,18 +5,19 @@ from flask import Flask
 from app.models import db
 
 # from flask_wtf.csrf import CsrfProtect
-# from flask_login import LoginManager
+from flask_login import LoginManager
 
-# from app.libs.email import mail
-# from flask_cache import Cache
+
+#from flask_cache import Cache
 # from app.libs.limiter import Limiter
+# from app.libs.email import mail
 
 __author__ = '带土'
 
 
-# login_manager = LoginManager()
-# cache = Cache(config={'CACHE_TYPE': 'simple'})
-# limiter = Limiter()
+login_manager = LoginManager()
+#cache = Cache(config={'CACHE_TYPE': 'simple'})
+#limiter = Limiter()
 
 
 def register_web_blueprint(app):
@@ -53,12 +54,13 @@ def create_app(config=None):
     # mail.init_app(app)
     #
     # # 注册login模块
-    # login_manager.init_app(app)
-    # login_manager.login_view = 'web.login'
-    # login_manager.login_message = '请先登录或注册'
-    #
-    # # 注册flask-cache模块
-    # cache.init_app(app)
+    login_manager.init_app(app)
+    login_manager.login_view = 'web.login'
+    login_manager.login_message = '请先登录或注册'
+
+
+    # 注册flask-cache模块
+    #cache.init_app(app)
 
     # 注册CSRF保护
     # csrf = CsrfProtect()

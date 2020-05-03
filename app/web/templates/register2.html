@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>注册 - Awesome Python Webapp</title>
+{% include '__head__.html' %}
+</head>
+<body>
+	<div id="container">
+		<div class="center">
+		
+			<div class="row">
+				{% with messages = get_flashed_messages() %}
+					{% for message in messages %}
+						{% if message %}
+							<div class="alert alert-warning" role="alert">{{ message }}</div>
+						{% endif %}
+					{% endfor %}
+				{% endwith %}
+				{% if form and form.errors %}
+					{% for key, error in form.errors.items() %}
+						<div class="alert alert-warning" role="alert">{{ error }}</div>
+					{% endfor %}
+				{% endif %}
+			</div>
+		
+		
+			<div id="registerBox" class="loginRegist">
+				<h1>欢迎注册</h1>
+
+				<form action="{{ url_for('web.register2') }}" method="post">
+
+				
+					<div class="name">
+						<label>名字：</label>
+						<input type="text" name="name" placeholder="名字" value="{{ form.data['name'] | default('',true) }}" />
+					</div>
+					<div class="email">
+						<label>电子邮件：</label>
+						<input type="text" name='email' placeholder="your-name@example.com" value="{{ form.data['email'] | default('',true) }}" />
+					</div>
+					<div class="tel">
+						<label>移动电话：</label>
+						<input type="text" name='tel' placeholder="13109512345"/>
+					</div>
+					<div class="address">
+						<label>地址：</label>
+						<input type="text" name='address' placeholder="陕西 西安 莲湖"/>
+					</div>
+					<div class="enterPassword">
+						<label>输入口令：</label>
+						<input type="password" name='passwd' placeholder="输入口令"/>
+					</div>
+					<div class="resetPassword">
+						<label>重置口令：</label>
+						<input type="password" name='repasswd' placeholder="重置口令"/>
+					</div>
+					<button type="submit" id="submit">注 册</button>
+				</form>
+				
+                <div style="margin-top:30px;" class="row">
+                    <div class="col-md-8 text-center col-md-offset-2">
+                        <span class="description-font">已有账号？</span><a
+                            href="#">登录</a>
+                    </div>
+                </div>
+				
+				
+			</div>
+		</div>
+	</div>
+
+<script>
+
+$(function(){
+
+	$("#submit").click(function(e){
+		var passwd = $("input[name='passwd']").val()
+		var repasswd = $("input[name='repasswd']").val()
+		if(passwd !== repasswd){
+			e.preventDefault();
+		}
+	})
+
+
+
+
+
+
+})
+
+
+</script>
+
+
+</body>
+</html>
