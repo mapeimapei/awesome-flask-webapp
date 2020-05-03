@@ -4,6 +4,7 @@ from flask import render_template, flash, request, jsonify
 import pymysql
 import logging
 
+from ..models.test import TestCCCCCC,Test1
 from ..secure import SQLALCHEMY_DATABASE_URI
 
 logging.basicConfig(level=logging.DEBUG)
@@ -17,6 +18,18 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, text, Integer, Float
 
 __author__ = "带土"
+
+@web.route('/testDb')
+def testDb():
+    text = TestCCCCCC()
+
+
+    return "11111"
+
+
+
+
+
 
 
 def get_session():

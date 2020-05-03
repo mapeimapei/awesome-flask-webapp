@@ -17,6 +17,7 @@ flask-cache = "*"
 flask-cookies = "*"
 openpyxl = "*"
 cymysql = "*"
+contextlib = "*"
 
 [requires]
 python_version = "3.8"

@@ -1,13 +1,13 @@
 """商店模型库"""
 import time, datetime, json, decimal, logging
 from sqlalchemy import text
-from app.models.base import Base
+from app.models.base import Base2
 
 logging.basicConfig(level=logging.DEBUG)
 __author__ = "带土"
 
 
-class Shop(Base):
+class Shop(Base2):
     def __init__(self):
         super().__init__()
 

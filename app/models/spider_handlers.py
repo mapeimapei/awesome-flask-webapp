@@ -2,7 +2,7 @@
 import re, time, logging, uuid, pymysql
 
 from sqlalchemy import text
-from app.models.base import Base
+from app.models.base import Base2
 import threading
 import urllib.request
 from bs4 import BeautifulSoup
@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.DEBUG)
 __author__ = "带土"
 
 
-class Spider(Base):
+class Spider(Base2):
     def __init__(self):
         self.count = 0
         super().__init__()

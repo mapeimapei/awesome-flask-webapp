@@ -2,10 +2,11 @@
     创建应用程序，并注册相关蓝图
 '''
 from flask import Flask
+from app.models import db
 
 # from flask_wtf.csrf import CsrfProtect
 # from flask_login import LoginManager
-# from app.models.base import db
+
 # from app.libs.email import mail
 # from flask_cache import Cache
 # from app.libs.limiter import Limiter
@@ -44,10 +45,10 @@ def create_app(config=None):
     #: load default configuration
     app.config.from_object('app.settings')
     app.config.from_object('app.secure')
-    #
-    # # 注册SQLAlchemy
-    # db.init_app(app)
-    #
+
+    # 注册SQLAlchemy
+    db.init_app(app)
+
     # # 注册email模块
     # mail.init_app(app)
     #

@@ -2,13 +2,13 @@
 import time, logging, uuid
 
 from sqlalchemy import text
-from app.models.base import Base
+from app.models.base import Base2
 
 logging.basicConfig(level=logging.DEBUG)
 __author__ = "带土"
 
 
-class User(Base):
+class User(Base2):
     def __init__(self):
         super().__init__()
 
