@@ -1,7 +1,7 @@
 """定义基类"""
 from ..secure import SQLALCHEMY_DATABASE_URI
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, DateTime, func
 
 from datetime import datetime
 from contextlib import contextmanager
@@ -11,7 +11,7 @@ from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy, BaseQuery
 
 __author__ = "带土"
 
-__all__ = ['db', 'Base','Base2']
+__all__ = ['db', 'Base', 'Base2']
 
 
 class SQLAlchemy(_SQLAlchemy):
@@ -44,18 +44,21 @@ db = SQLAlchemy(query_class=Query)
 
 class Base(db.Model):
     __abstract__ = True
-    create_time = Column('create_time', Integer)
+    __table_args__ = {'mysql_character_set': 'utf8', 'mysql_collate': 'utf8_general_ci'}
+
+    create_time = Column(DateTime, server_default=func.now())
     status = Column(SmallInteger, default=1)
 
     def __init__(self):
-        self.create_time = int(datetime.now().timestamp())
+        # self.create_time = int(datetime.now().timestamp())
+        pass
 
-    @property
-    def create_datetime(self):
-        if self.create_time:
-            return datetime.fromtimestamp(self.create_time)
-        else:
-            return None
+    #@property
+    # def create_datetime(self):
+    #     if self.create_time:
+    #         return datetime.fromtimestamp(self.create_time)
+    #     else:
+    #         return None
 
     def delete(self):
         self.status = 0
@@ -71,6 +74,7 @@ class BaseNoCreateTime(db.Model):
     status = Column(SmallInteger, default=1)
 
 
+# sqlalchemy 执行原生SQL
 class Base2(object):
     def __init__(self):
         self.engine = create_engine(
