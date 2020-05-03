@@ -24,6 +24,7 @@ __author__ = "带土"
 @web.route("/register2", methods=["GET", "POST"])
 def register2():
     form = RegisterForm(request.form)
+
     if request.method == "POST" and form.validate():
         user = User()
         user.set_attrs(form.data)
@@ -45,7 +46,7 @@ def login():
             return redirect(url_for("web.index"))
         else:
             flash('账号不存在或密码错误', category='login_error')
-    return render_template('login.html')
+    return render_template('login.html',form=form)
 
 
     # form = LoginForm(request.form)

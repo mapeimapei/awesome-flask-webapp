@@ -30,12 +30,12 @@
 				<h1>欢迎登录</h1>
 				<form action="{{ url_for('web.login') }}" method="post">
 					<div class="name">
-						<label>账号：</label>
-						<input type="text" name='email' placeholder="邮箱"/>
+						<label>邮箱：</label>
+						<input type="text" name='email' id="email" placeholder="邮箱" value="{{ form.data['email'] | default('',true) }}" />
 					</div>
 					<div class="enterPassword">
 						<label>输入口令：</label>
-						<input type="text" name='passwd' placeholder="输入口令"/>
+						<input type="text" name='passwd' id="passwd" placeholder="输入口令" />
 					</div>
 					<button type="submit">登 录</button>
 				</form>

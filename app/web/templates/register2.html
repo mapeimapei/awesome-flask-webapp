@@ -41,15 +41,15 @@
 					</div>
 					<div class="tel">
 						<label>移动电话：</label>
-						<input type="text" name='tel' placeholder="13109512345"/>
+						<input type="text" name='tel' placeholder="13109512345" value="{{ form.data['tel'] | default('',true) }}"/>
 					</div>
 					<div class="address">
 						<label>地址：</label>
-						<input type="text" name='address' placeholder="陕西 西安 莲湖"/>
+						<input type="text" name='address' placeholder="陕西 西安 莲湖" value="{{ form.data['address'] | default('',true) }}" />
 					</div>
 					<div class="enterPassword">
 						<label>输入口令：</label>
-						<input type="password" name='passwd' placeholder="输入口令"/>
+						<input type="password" name='passwd' placeholder="输入口令" value="{{ form.data['passwd'] | default('',true) }}" />
 					</div>
 					<div class="resetPassword">
 						<label>重置口令：</label>
