@@ -1,5 +1,7 @@
 """用户ORM模型库"""
 import time, logging, uuid
+
+from flask_login import UserMixin
 from sqlalchemy import Column, String, Integer, ForeignKey, Boolean, SmallInteger, text
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -11,7 +13,7 @@ logging.basicConfig(level=logging.DEBUG)
 __author__ = "带土"
 
 
-class User(Base):
+class User(UserMixin,Base):
     __tablename__ = 'user1'
     _userid = Column("userid", String(50), nullable=False,primary_key=True)
     email = Column(String(50), unique=True, nullable=True, index=True)
@@ -42,7 +44,10 @@ class User(Base):
         print("check_password",row)
         return check_password_hash(self._passwd, row)
 
+    def get_id(self):
+        return self._userid + "987"
+
 
 @login_manager.user_loader
 def get_user(uid):
-    return User.query.get(int(uid))
+    return User.query.get(str(uid))

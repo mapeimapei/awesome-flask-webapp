@@ -30,6 +30,7 @@ def register2():
         user.set_attrs(form.data)
         db.session.add(user)
         db.session.commit()
+        login_user(user, False)
         return redirect(url_for('web.index'))
 
     return render_template('register2.html', form=form)
@@ -39,27 +40,18 @@ def register2():
 def login():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
+
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.passwd.data):
-            #login_user(user, remember=True)
-            print('ook ',user )
-            return redirect(url_for("web.index"))
+            login_user(user, remember=True)
+            next = request.args.get('next')
+            if not next or not next.startswith('/'):
+                next = url_for('web.index')
+            return redirect(next)
         else:
             flash('账号不存在或密码错误', category='login_error')
+
     return render_template('login.html',form=form)
-
-
-    # form = LoginForm(request.form)
-    # if request.method == 'POST' and form.validate():
-    #     user = User.query.filter_by(email=form.email.data).first()
-    #     if user and user.check_password(form.password.data):
-    #         login_user(user, remember=True)
-    #         next = request.args.get('next')
-    #         if not next or not next.startswith('/'):
-    #             next = url_for('web.index')
-    #         return redirect(next)
-    #     else:
-    #         flash('账号不存在或密码错误', category='login_error')
 
 
 
