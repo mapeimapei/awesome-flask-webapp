@@ -28,7 +28,6 @@ class User(Base):
 
     @userid.setter
     def userid(self, raw):
-        print("userid", raw)
         self._userid = next_id()
 
     @property
@@ -37,10 +36,10 @@ class User(Base):
 
     @passwd.setter
     def passwd(self, raw):
-        print("fffffff", raw)
         self._passwd = generate_password_hash(raw)
 
     def check_password(self, row):
+        print("check_password",row)
         return check_password_hash(self._passwd, row)
 
 
