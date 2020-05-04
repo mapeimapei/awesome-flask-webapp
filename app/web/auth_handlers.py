@@ -21,19 +21,23 @@ logging.basicConfig(level=logging.DEBUG)
 __author__ = "带土"
 
 
-@web.route("/register2", methods=["GET", "POST"])
-def register2():
+@web.route("/register", methods=["GET", "POST"])
+def register():
     form = RegisterForm(request.form)
 
     if request.method == "POST" and form.validate():
-        user = User()
-        user.set_attrs(form.data)
-        db.session.add(user)
-        db.session.commit()
-        login_user(user, False)
-        return redirect(url_for('web.index'))
+        try:
+            user = User()
+            user.set_attrs(form.data)
+            db.session.add(user)
+            db.session.commit()
+            login_user(user, False)
 
-    return render_template('register2.html', form=form)
+        except Exception as e:
+            db.session.rollback()
+            raise e
+        return redirect(url_for('web.index'))
+    return render_template('register.html', form=form)
 
 
 @web.route("/login", methods=["GET", "POST"])

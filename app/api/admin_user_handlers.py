@@ -22,7 +22,6 @@ def login():
     args = json.loads(request.data)
     user = User.query.filter(or_(User.email == args['email'],User.name == args['email'])).first()
     if user and user.check_password(args['passwd']):
-        #login_user(user, remember=True)
 
         login_user(user)
         res = user.__dict__

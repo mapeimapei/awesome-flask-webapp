@@ -22,7 +22,7 @@ class RegisterForm(Form):
     name = StringField('昵称', validators=[DataRequired(), Length(4, 10, message='昵称至少需要两个字符，最多10个字符')])
 
     email = StringField('电子邮件', validators=[DataRequired(), Length(1, 64), Email(message='电子邮箱不符合规范')])
-    tel = StringField('tel')
+    tel = StringField('tel',validators=[DataRequired(), Length(0,11, message='电话不合法')])
     address = StringField('地址')
 
     passwd = PasswordField('密码', validators=[DataRequired(), Length(6, 20, message='密码长度不够')])
@@ -34,3 +34,7 @@ class RegisterForm(Form):
     def validate_name(self, field):
         if User.query.filter_by(name=field.data).first():
             raise ValidationError('昵称已存在')
+
+    def validate_tel(self, field):
+        if User.query.filter_by(tel=field.data).first():
+            raise ValidationError('手机已存在')

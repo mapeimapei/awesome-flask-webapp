@@ -53,13 +53,6 @@ class Base(db.Model):
         # self.create_time = int(datetime.now().timestamp())
         pass
 
-    #@property
-    # def create_datetime(self):
-    #     if self.create_time:
-    #         return datetime.fromtimestamp(self.create_time)
-    #     else:
-    #         return None
-
     def delete(self):
         self.status = 0
 
