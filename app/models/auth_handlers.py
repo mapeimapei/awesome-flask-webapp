@@ -45,7 +45,7 @@ class User(UserMixin,Base):
         return check_password_hash(self._passwd, row)
 
     def get_id(self):
-        return self._userid + "987"
+        return self._userid
 
 
 @login_manager.user_loader

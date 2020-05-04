@@ -1,9 +1,11 @@
 '''
 blog的视图函数
 '''
+from flask_login import current_user, login_required
+
 from . import web
 from ..models.blog_handlers import BlogList
-from flask import render_template, flash, request, jsonify, url_for, redirect
+from flask import render_template, flash, request, jsonify, url_for, redirect, session
 import time, logging
 
 logging.basicConfig(level=logging.DEBUG)
@@ -18,15 +20,21 @@ def page404():
 
 @web.route("/")
 def index():
+    #name = current_user.name
+
     blog_list = BlogList()
     result = blog_list.get_single_list()
+
     return render_template('index.html', blogData=result)
 
 
 @web.route('/single/<id>')
+@login_required
 def single(id):
     blog_list = BlogList()
     result = blog_list.get_single_data(id)
+    print("11111",current_user,session)
+    print("2222",  session)
     if result:
         return render_template('single.html', singleData=result)
     else:

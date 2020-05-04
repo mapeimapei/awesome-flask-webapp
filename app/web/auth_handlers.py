@@ -20,7 +20,6 @@ logging.basicConfig(level=logging.DEBUG)
 __author__ = "带土"
 
 
-
 @web.route("/register2", methods=["GET", "POST"])
 def register2():
     form = RegisterForm(request.form)
@@ -51,9 +50,14 @@ def login():
         else:
             flash('账号不存在或密码错误', category='login_error')
 
-    return render_template('login.html',form=form)
+    return render_template('login.html', form=form)
 
 
+@web.route("/logout", methods=["GET"])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('web.index'))
 
 
 
