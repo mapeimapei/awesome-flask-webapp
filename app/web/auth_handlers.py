@@ -1,6 +1,7 @@
 '''
 user handlers
 '''
+from sqlalchemy import or_
 from wtforms import form
 
 from . import web
@@ -39,7 +40,6 @@ def register2():
 def login():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
-
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.passwd.data):
             login_user(user, remember=True)

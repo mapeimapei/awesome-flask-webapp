@@ -19,8 +19,9 @@ def page404():
 
 
 @web.route("/")
+@login_required
 def index():
-    #name = current_user.name
+    # name = current_user.name
 
     blog_list = BlogList()
     result = blog_list.get_single_list()
@@ -33,8 +34,8 @@ def index():
 def single(id):
     blog_list = BlogList()
     result = blog_list.get_single_data(id)
-    print("11111",current_user,session)
-    print("2222",  session)
+    print("11111", current_user)
+
     if result:
         return render_template('single.html', singleData=result)
     else:
