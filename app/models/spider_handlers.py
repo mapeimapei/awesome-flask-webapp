@@ -105,8 +105,8 @@ class Spider(Base2):
             obj["url"] = str.strip(item.find("h3").find("a").get("href"))
 
             obj["id"] = str('%015d%s000' % (int(time.time() * 1000), uuid.uuid4().hex))
-            obj["user_id"] = "0015836752831646b98fd78b974463c9c18321cf8136eeb000"
-            obj["user_name"] = "mapei"
+            obj["user_id"] = "00158855657446102ff7cb03a1e4bb08db58fa8acaf7440000"
+            obj["user_name"] = "spider"
             obj["user_image"] = "about:blank"
 
             postArr.append(obj)

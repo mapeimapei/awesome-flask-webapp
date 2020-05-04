@@ -14,7 +14,7 @@ class User(Base2):
 
     # 获取登陆用户数据
     def get_user_data(self, args):
-        sql = 'select id,name,address,tel from users where (name = :account or email=:account) And passwd = :passwd'
+        sql = 'select user_id,name,address,tel from users where (name = :account or email=:account) And passwd = :passwd'
         print(f'sql:{sql}')
         fields = {}
         try:

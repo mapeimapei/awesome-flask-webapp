@@ -13,9 +13,9 @@ logging.basicConfig(level=logging.DEBUG)
 __author__ = "带土"
 
 
-class User(UserMixin,Base):
-    __tablename__ = 'user1'
-    _userid = Column("userid", String(50), nullable=False,primary_key=True)
+class User(UserMixin, Base):
+    __tablename__ = 'users'
+    _user_id = Column("user_id", String(50), nullable=False, primary_key=True)
     email = Column(String(50), unique=True, nullable=True, index=True)
     _passwd = Column('passwd', String(128), nullable=False)
     admin = Column(SmallInteger, server_default=text("0"))
@@ -25,12 +25,12 @@ class User(UserMixin,Base):
     tel = Column(String(18), unique=True)
 
     @property
-    def userid(self):
-        return self._userid
+    def user_id(self):
+        return self._user_id
 
-    @userid.setter
-    def userid(self, raw):
-        self._userid = next_id()
+    @user_id.setter
+    def user_id(self, raw):
+        self._user_id = next_id()
 
     @property
     def passwd(self):
@@ -41,11 +41,11 @@ class User(UserMixin,Base):
         self._passwd = generate_password_hash(raw)
 
     def check_password(self, row):
-        print("check_password",row)
+        print("check_password", row)
         return check_password_hash(self._passwd, row)
 
     def get_id(self):
-        return self._userid
+        return self._user_id
 
 
 @login_manager.user_loader

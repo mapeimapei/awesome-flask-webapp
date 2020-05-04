@@ -18,7 +18,7 @@ class LoginForm(Form):
 
 
 class RegisterForm(Form):
-    userid = StringField('userid')
+    user_id = StringField('user_id')
     name = StringField('昵称', validators=[DataRequired(), Length(4, 10, message='昵称至少需要两个字符，最多10个字符')])
 
     email = StringField('电子邮件', validators=[DataRequired(), Length(1, 64), Email(message='电子邮箱不符合规范')])
