@@ -122,13 +122,13 @@ class Spider(Base2):
                                      password='mapei123',
                                      db='awesome',
                                      charset='utf8')
-        affectedcount = 0
+        affectedCount = 0
         try:
             # 创建游标对象
             with connection.cursor() as cursor:
                 # 3 执行sql操作
                 sql = 'update blogs set content = "{0}" WHERE content = "{1}"'.format(obj["content"], obj["url"])
-                affectedcount = cursor.execute(sql)
+                affectedCount = cursor.execute(sql)
                 logging.info(f"影响的数据行数{affectedCount}")
                 # 4 提交数据库事务
                 connection.commit()
@@ -139,7 +139,7 @@ class Spider(Base2):
         finally:
             # 6 关闭数据库连接
             connection.close()
-            return affectedcount
+            return affectedCount
 
     def get_spider_content_list(self):
         """ 查找爬虫文章列表数据 """
@@ -181,7 +181,7 @@ class Spider(Base2):
                                      password='mapei123',
                                      db='awesome',
                                      charset='utf8')
-        affectedcount = 0
+        affectedCount = 0
         valStr = ""
         for item in list:
             if item["name"] not in pastsIdArr:
@@ -196,7 +196,7 @@ class Spider(Base2):
                       ' VALUES ' + valStr[1:]
                 print("sql", sql)
 
-                affectedcount = cursor.execute(sql)
+                affectedCount = cursor.execute(sql)
                 logging.info(f"影响的数据行数{affectedCount}")
                 # 4 提交数据库事务
                 connection.commit()
@@ -207,4 +207,4 @@ class Spider(Base2):
         finally:
             # 6 关闭数据库连接
             connection.close()
-            return affectedcount
+            return affectedCount

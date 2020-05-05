@@ -15,12 +15,11 @@ from flask import render_template, flash, request, jsonify, url_for, redirect
 __author__ = "带土"
 
 
-
 @api.route("/login", methods=["POST"])
 def login():
     data = {}
     args = json.loads(request.data)
-    user = User.query.filter(or_(User.email == args['email'],User.name == args['email'])).first()
+    user = User.query.filter(or_(User.email == args['account'], User.name == args['account'])).first()
     if user and user.check_password(args['passwd']):
 
         login_user(user)
