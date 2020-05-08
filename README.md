@@ -1,5 +1,5 @@
 # awesome-flask-webapp
-flask框架的博客项目 包括博客、爬虫和宠物商店。博客管理后台使用webpack + vue + element-ui 完成
+flask框架的博客项目 包括博客、爬虫和宠物商店。博客管理后台使用webpack + vue + element-ui 完成。
 master为主线分支，保证功能完整性，dev为开发分支，不保证功能可用
 
 ```
@@ -29,7 +29,7 @@ mysql-installer-community-5.6.47.0
 pycharm-community-2019.3.2
 
 # sql文件（导入即可）
-awesome504.sql
+awesome0508.sql
 
 # 一些修改
 全局替换.py和.ini中的mapei123为您的数据库密码
