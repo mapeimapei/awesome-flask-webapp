@@ -18,7 +18,7 @@ __author__ = "带土"
 @api.route("/login", methods=["POST"])
 def login():
     data = {}
-    args = json.loads(request.data)
+    args = request.json
     user = User.query.filter(or_(User.email == args['account'], User.name == args['account'])).first()
     if user and user.check_password(args['passwd']):
 

@@ -19,23 +19,14 @@ login_manager = LoginManager()
 # limiter = Limiter()
 
 
-def register_web_blueprint(app):
+def register_blueprint(app):
     from app.web import web
-    app.register_blueprint(web)
-
-
-def register_api_blueprint(app):
     from app.api import api
-    app.register_blueprint(api, url_prefix='/api/cms')
-
-
-def register_spider_blueprint(app):
     from app.spider import spider
-    app.register_blueprint(spider, url_prefix='/api/spider')
-
-
-def register_pet_shop_blueprint(app):
     from app.pet_shop import shop
+    app.register_blueprint(web)
+    app.register_blueprint(api, url_prefix='/api/cms')
+    app.register_blueprint(spider, url_prefix='/api/spider')
     app.register_blueprint(shop, url_prefix='/api/shop')
 
 
@@ -64,10 +55,7 @@ def create_app(config=None):
     # csrf = CsrfProtect()
     # csrf.init_app(app)
 
-    register_api_blueprint(app)
-    register_web_blueprint(app)
-    register_spider_blueprint(app)
-    register_pet_shop_blueprint(app)
+    register_blueprint(app)
 
     if config is not None:
         if isinstance(config, dict):
