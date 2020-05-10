@@ -23,7 +23,7 @@ def generate_auth_token(user_id, name, scope=None):
     """生成令牌"""
     s = Serializer(current_app.config['SECRET_KEY'], expires_in=current_app.config['TOKEN_EXPIRATION'])
     return s.dumps({
-        'uid': user_id,
+        'user_id': user_id,
         'name': name,
         'scope': scope
     })
@@ -36,7 +36,7 @@ def login():
     user = User.query.filter(or_(User.email == args['account'], User.name == args['account'])).first()
     if user and user.check_password(args['passwd']):
         # Token
-        token = generate_auth_token(user['user_id'],user['name'])
+        token = generate_auth_token(user['user_id'], user['name'])
         data = {
             "resultCode": "20000",
             "message": "ok",
@@ -44,7 +44,7 @@ def login():
                 "id": user["user_id"],
                 "name": user["name"],
                 "email": user["email"],
-                "token":  token.decode('ascii')
+                "token": token.decode('ascii')
             }
         }
     else:

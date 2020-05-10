@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.DEBUG)
 __author__ = "带土"
 
 
-class User(Base):
+class User(UserMixin,Base):
     __tablename__ = 'users'
     _user_id = Column("user_id", String(50), nullable=False, primary_key=True)
     email = Column(String(50), unique=True, nullable=True, index=True)

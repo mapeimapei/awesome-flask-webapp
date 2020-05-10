@@ -7,7 +7,7 @@ from app.libs.util import next_id
 from app.models.pet_shop_handlers import Shop
 from flask import flash, request, jsonify, url_for, redirect
 from app.libs.redprint import Redprint
-
+from app.libs.token_auth import auth
 __author__ = "带土"
 
 api = Redprint('cart')
@@ -15,6 +15,7 @@ api = Redprint('cart')
 
 # 删除购物车数据
 @api.route("/deleteCart", methods=["POST"])
+@auth.login_required
 def deleteCart():
     args = json.loads(request.data)
     _shop = Shop()
@@ -41,6 +42,7 @@ def deleteCart():
 
 # 获取购物车数据
 @api.route("/getCartList/<userid>", methods=["GET"])
+@auth.login_required
 def getCartList(userid):
     _shop = Shop()
     result = _shop.get_cart_list(userid)
@@ -64,6 +66,7 @@ def getCartList(userid):
 
 # 购物车添加
 @api.route("/addCart", methods=["POST"])
+@auth.login_required
 def addCart():
     args = json.loads(request.data)
     _shop = Shop()

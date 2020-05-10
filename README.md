@@ -21,6 +21,7 @@ pipenv install werkzeug
 pipenv install beautifulsoup4
 pipenv install openpyxl
 pipenv install email_validator
+pipenv install Flask-HTTPAuth
 
 # 数据库版本：
 mysql-installer-community-5.6.47.0

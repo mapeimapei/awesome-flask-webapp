@@ -7,7 +7,7 @@ from app.libs.util import next_id
 from app.models.pet_shop_handlers import Shop
 from flask import flash, request, jsonify, url_for, redirect
 from app.libs.redprint import Redprint
-
+from app.libs.token_auth import auth
 __author__ = "带土"
 
 api = Redprint('order')
@@ -15,6 +15,7 @@ api = Redprint('order')
 
 # 删除订单中的商品
 @api.route("/deleteProductInOrderDetails", methods=["POST"])
+@auth.login_required
 def deleteProductInOrderDetails():
     args = json.loads(request.data)
     _shop = Shop()
@@ -40,6 +41,7 @@ def deleteProductInOrderDetails():
 
 # 订单详情
 @api.route("/getOrdersDetailsById", methods=["POST"])
+@auth.login_required
 def getOrdersDetailsById():
     args = json.loads(request.data)
     _shop = Shop()
@@ -65,6 +67,7 @@ def getOrdersDetailsById():
 
 # 删除订单
 @api.route("/deleteOrder", methods=["POST"])
+@auth.login_required
 def deleteOrder():
     args = json.loads(request.data)
     _shop = Shop()
@@ -90,6 +93,7 @@ def deleteOrder():
 
 # 获取订单数据
 @api.route("/getOrderList/<userid>", methods=["GET"])
+@auth.login_required
 def getOrderList(userid):
     _shop = Shop()
     result = _shop.get_order_list(userid)
@@ -114,6 +118,7 @@ def getOrderList(userid):
 
 # 生成订单
 @api.route("/addOrder", methods=["POST"])
+@auth.login_required
 def addOrder():
     args = json.loads(request.data)
     args["amount"] = 0

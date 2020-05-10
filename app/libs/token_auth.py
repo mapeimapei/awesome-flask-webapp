@@ -5,8 +5,7 @@ from collections import namedtuple
 
 from flask import current_app, g, request
 from flask_httpauth import HTTPBasicAuth
-from itsdangerous import TimedJSONWebSignatureSerializer \
-    as Serializer, BadSignature, SignatureExpired
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired
 
 from app.libs.error_code import AuthFailed, Forbidden
 from app.libs.scope import is_in_scope
@@ -14,7 +13,7 @@ from app.libs.scope import is_in_scope
 __author__ = '七月'
 
 auth = HTTPBasicAuth()
-User = namedtuple('User', ['uid', 'ac_type', 'scope'])
+User = namedtuple('User', ['user_id', 'name', 'scope'])
 
 
 @auth.verify_password
@@ -26,12 +25,13 @@ def verify_password(token, password):
     # 123456
     # key=Authorization
     # value =basic base64(qiyue:123456)
-    user_info = verify_auth_token(token)
+    user_info = verify_auth_token(password)
     if not user_info:
         return False
     else:
         # request
         g.user = user_info
+        print("11", user_info)
         return True
 
 
@@ -45,11 +45,11 @@ def verify_auth_token(token):
     except SignatureExpired:
         raise AuthFailed(msg='token is expired',
                          error_code=1003)
-    uid = data['uid']
-    ac_type = data['type']
-    scope = data['scope']
+    user_id = data['user_id']
+    name = data['name']
+    scope = None
     # request 视图函数
-    allow = is_in_scope(scope, request.endpoint)
-    if not allow:
-        raise Forbidden()
-    return User(uid, ac_type, scope)
+    #allow = is_in_scope(scope, request.endpoint)
+    #if not allow:
+    #    raise Forbidden()
+    return User(user_id, name, scope)
