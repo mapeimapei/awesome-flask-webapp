@@ -1,13 +1,13 @@
 """blog 模型库"""
 import time, logging
 from sqlalchemy import text
-from app.models.base import Base2
+from app.models.base import Base2 as Base
 
 logging.basicConfig(level=logging.DEBUG)
 __author__ = "带土"
 
 
-class BlogList(Base2):
+class BlogList(Base):
     def __init__(self):
         super().__init__()
 

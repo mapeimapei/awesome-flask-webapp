@@ -2,7 +2,7 @@
     创建应用程序，并注册相关蓝图
 '''
 from flask import Flask
-from app.models import db
+from app.models.base import db
 
 # from flask_wtf.csrf import CsrfProtect
 from flask_login import LoginManager
@@ -21,13 +21,22 @@ login_manager = LoginManager()
 
 def register_blueprint(app):
     from app.web import web
-    from app.api import api
-    from app.spider import spider
-    from app.pet_shop import shop
     app.register_blueprint(web)
-    app.register_blueprint(api, url_prefix='/api/cms')
-    app.register_blueprint(spider, url_prefix='/api/spider')
-    app.register_blueprint(shop, url_prefix='/api/shop')
+
+    from app.api.user import create_blueprint_user
+    app.register_blueprint(create_blueprint_user(), url_prefix='/api/user')
+
+
+    from app.api.cms import create_blueprint_cms
+    app.register_blueprint(create_blueprint_cms(), url_prefix='/api/cms')
+
+    from app.api.spider import create_blueprint_spider
+    app.register_blueprint(create_blueprint_spider(), url_prefix='/api/spider')
+
+    from app.api.shop import create_blueprint_shop
+    app.register_blueprint(create_blueprint_shop(), url_prefix='/api/shop')
+
+
 
 
 def create_app(config=None):

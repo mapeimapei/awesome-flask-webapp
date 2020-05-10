@@ -3,14 +3,15 @@
 '''
 import json, time
 
-from . import api
-from ..libs.util import next_id
-from ..models.blog_handlers import BlogList
-from ..models.user_handlers import User
+from app.libs.redprint import Redprint
+from app.libs.util import next_id
+from app.models.blog_handlers import BlogList
 
 from flask import render_template, flash, request, jsonify, url_for, redirect
 
 __author__ = "带土"
+
+api = Redprint('post')
 
 
 # 删除文章数据
@@ -33,7 +34,6 @@ def deleteSingle():
             "result": "删除失败"
         }
     return jsonify(data)
-
 
 
 # 添加文章数据

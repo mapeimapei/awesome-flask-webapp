@@ -3,14 +3,16 @@
 '''
 import json, time
 
-from . import spider
-from ..models.spider_handlers import Spider
+from app.models.spider_handlers import Spider
 from flask import render_template, flash, request, jsonify, url_for, redirect
+from app.libs.redprint import Redprint
 
 __author__ = "带土"
 
+api = Redprint('startSpider')
 
-@spider.route("/startSpider", methods=["POST"])
+
+@api.route("", methods=["POST"])
 def startSpider():
     _spider = Spider()
     count = _spider.spiderMain()

@@ -5,17 +5,19 @@ import json, time
 
 from flask_login import login_user
 from sqlalchemy import or_
-
-from . import api
-from ..forms.auth_handlers import LoginForm
-from ..libs.util import next_id
-from ..models.auth_handlers import User
+from app.forms.auth_handlers import LoginForm
+from app.libs.util import next_id
+from app.models.auth_handlers import User
 from flask import render_template, flash, request, jsonify, url_for, redirect
+
+from app.libs.redprint import Redprint
 
 __author__ = "带土"
 
+api = Redprint('login')
 
-@api.route("/login", methods=["POST"])
+
+@api.route("", methods=["POST"])
 def login():
     data = {}
     args = request.json
