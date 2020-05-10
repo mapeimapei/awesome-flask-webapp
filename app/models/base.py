@@ -1,5 +1,4 @@
 """定义基类"""
-from ..secure import SQLALCHEMY_DATABASE_URI
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, DateTime, func
 
@@ -71,7 +70,7 @@ class BaseNoCreateTime(db.Model):
 class Base2(object):
     def __init__(self):
         self.engine = create_engine(
-            SQLALCHEMY_DATABASE_URI,
+            current_app.config['SQLALCHEMY_DATABASE_URI'],
             pool_size=10,
             pool_recycle=7200,
             pool_pre_ping=True,

@@ -72,8 +72,8 @@ def create_app(config=None):
     app = Flask(__name__)
 
     #: load default configuration
-    app.config.from_object('app.settings')
-    app.config.from_object('app.secure')
+    app.config.from_object('app.config.settings')
+    app.config.from_object('app.config.secure')
 
     # # 注册email模块
     # mail.init_app(app)
