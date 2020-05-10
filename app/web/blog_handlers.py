@@ -3,8 +3,8 @@ blog的视图函数
 '''
 from flask_login import current_user, login_required
 
-from . import web
-from ..models.blog_handlers import BlogList
+from app.web import web
+from app.models.blog_handlers import BlogList
 from flask import render_template, flash, request, jsonify, url_for, redirect, session
 import time, logging
 

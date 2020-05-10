@@ -4,14 +4,14 @@ user handlers
 from sqlalchemy import or_
 from wtforms import form
 
-from . import web
-from ..forms.auth_handlers import RegisterForm, LoginForm
+from app.web import web
+from app.forms.auth_handlers import RegisterForm, LoginForm
 from ..libs.util import next_id
 
 from flask import render_template, flash, request, jsonify, url_for, redirect
 from flask_login import login_user, login_required, logout_user, current_user
 from app.models import db
-from ..models.auth_handlers import User
+from app.models.auth_handlers import User
 import time, logging
 
 from flask_sqlalchemy import get_debug_queries
@@ -19,7 +19,6 @@ from flask_sqlalchemy import get_debug_queries
 logging.basicConfig(level=logging.DEBUG)
 
 __author__ = "带土"
-
 
 @web.route("/register", methods=["GET", "POST"])
 def register():

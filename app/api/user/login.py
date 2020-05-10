@@ -19,14 +19,17 @@ api = Redprint('login')
 
 @api.route("", methods=["POST"])
 def login():
-    data = {}
-    args = request.json
-    user = User.query.filter(or_(User.email == args['account'], User.name == args['account'])).first()
+
+    data = request.json
+    form = LoginForm(data = data)
+    user = User.query.filter(or_(User.email == form['account'], User.name == form['account'])).first()
+
+    obj= {}
     if user and user.check_password(args['passwd']):
 
-        login_user(user)
+        #login_user(user)
         res = user.__dict__
-        data = {
+        obj = {
             "resultCode": "20000",
             "message": "ok",
             "result": {
@@ -37,9 +40,9 @@ def login():
             }
         }
     else:
-        data = {
+        obj = {
             "resultCode": "000000",
             "message": "faild",
             "result": {}
         }
-    return jsonify(data)
+    return jsonify(obj)
