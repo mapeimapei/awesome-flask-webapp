@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.DEBUG)
 __author__ = "带土"
 
 
-class User(UserMixin, Base):
+class User(Base):
     __tablename__ = 'users'
     _user_id = Column("user_id", String(50), nullable=False, primary_key=True)
     email = Column(String(50), unique=True, nullable=True, index=True)
@@ -23,6 +23,12 @@ class User(UserMixin, Base):
     image = Column(String(200), server_default="about:blank")
     address = Column(String(200))
     tel = Column(String(18), unique=True)
+
+    def keys(self):
+        return ['user_id', 'email', 'name', 'tel']
+
+    def __getitem__(self, item):
+        return getattr(self, item)
 
     @property
     def user_id(self):

@@ -12,6 +12,7 @@ __author__ = "带土"
 
 
 class LoginForm(Form):
+
     email = StringField('电子邮件', validators=[DataRequired(), Length(1, 64), Email(message='电子邮箱不符合规范')])
     passwd = PasswordField('密码', validators=[
         DataRequired(message='密码不可以为空，请输入你的密码')])
