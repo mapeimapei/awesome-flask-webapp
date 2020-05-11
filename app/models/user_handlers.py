@@ -1,4 +1,4 @@
-"""用户模型库"""
+"""用户模型库 这个文件已废弃"""
 import time, logging, uuid
 
 from sqlalchemy import text

@@ -1,4 +1,7 @@
-'''公共方法'''
+"""
+ 公共方法
+ Created by 带入 on 2020/4/20.
+"""
 import re, uuid, json, hashlib, base64, time,datetime
 
 def next_id():
