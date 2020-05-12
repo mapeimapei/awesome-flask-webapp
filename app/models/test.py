@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, Integer, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 
-from app.models import Base
+from app.models.base import Base
 
 
 class TestCCCCCC(Base):

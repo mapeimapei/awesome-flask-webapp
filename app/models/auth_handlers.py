@@ -6,7 +6,7 @@ from sqlalchemy import Column, String, Integer, ForeignKey, Boolean, SmallIntege
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.libs.util import next_id
-from app.models import Base
+from app.models.base import Base
 from app import login_manager
 
 logging.basicConfig(level=logging.DEBUG)

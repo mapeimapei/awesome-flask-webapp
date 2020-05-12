@@ -6,8 +6,6 @@ from app.models.base import Base2
 import threading
 import urllib.request
 from bs4 import BeautifulSoup
-from ..libs.util import next_id
-from ..models.blog_handlers import BlogList
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -38,13 +36,12 @@ class Spider(Base2):
         t = threading.current_thread()
         print("列表爬虫线程开始", t.name)
         postArr = self.get_ire_posts()
-        blog_list = BlogList()
-        blogPostArr = blog_list.get_single_list()
-
+        blogPostArr = self.get_single_list()
         pastsNameArr = []
         for item in blogPostArr:
             pastsNameArr.append(item["name"])
         self.count = self.insert_single_list(postArr, pastsNameArr)
+
         print("列表爬虫线程结束", t.name, self.count)
 
     def contentSpiderThreadBody(self):
@@ -70,7 +67,6 @@ class Spider(Base2):
     def get_ire_content(self, url):
         req = urllib.request.Request(url)
         article = ""
-
         arr = []
         with urllib.request.urlopen(req) as res:
             data = res.read()
@@ -112,6 +108,41 @@ class Spider(Base2):
             postArr.append(obj)
 
         return postArr
+
+    def get_single_list(self):
+        """ 获取列表数据 """
+        # 1 建立数据库连接
+        connection = pymysql.connect(host='127.0.0.1',
+                                     port=3306,
+                                     user='root',
+                                     password='mapei123',
+                                     db='awesome',
+                                     charset='utf8')
+        # 要返回的数据
+        data = []
+        try:
+            # 创建游标对象
+            with connection.cursor() as cursor:
+                # 3 执行sql操作
+                sql = 'select id,name,summary,content,created_at,user_name from blogs order by created_at desc'
+                cursor.execute(sql)
+                # 4. 提取结果集
+                result_set = cursor.fetchall()
+                for row in result_set:
+                    fields = {}
+                    fields['id'] = row[0]
+                    fields['name'] = row[1]
+                    fields['summary'] = row[2]
+                    fields['content'] = row[3]
+                    fields['created_at'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(row[4]))
+                    fields['user_name'] = row[5]
+                    data.append(fields)
+        except pymysql.DatabaseError as error:
+            print('数据查询失败' + error)
+        finally:
+            # 6 关闭数据库连接
+            connection.close()
+        return data
 
     def update_single_data(self, obj):
         """  更新文章数据 """
