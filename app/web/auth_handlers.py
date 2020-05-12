@@ -10,7 +10,7 @@ from ..libs.util import next_id
 
 from flask import render_template, flash, request, jsonify, url_for, redirect
 from flask_login import login_user, login_required, logout_user, current_user
-from app.models import db
+from app.models.base import db
 from app.models.auth_handlers import User
 import time, logging
 

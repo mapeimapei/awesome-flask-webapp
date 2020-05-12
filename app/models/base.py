@@ -10,7 +10,7 @@ from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy, BaseQuery
 
 __author__ = "带土"
 
-__all__ = ['db', 'Base', 'Base2']
+#__all__ = ['db', 'Base', 'Base2']
 
 
 class SQLAlchemy(_SQLAlchemy):
