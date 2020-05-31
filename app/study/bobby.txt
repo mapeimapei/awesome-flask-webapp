@@ -1,0 +1,8 @@
+list = TopTask.query.filter(subquery.c.adminid == TopTask.userid).filter(
+        subquery.c.teamid == adminteam.teamid).filter(
+        TopTask.name.like('%' + (search or '') + '%')).filter(
+        db.cast(TopTask.flushtime, db.Date) == db.cast(timesearch, db.Date)).filter_by(deletetag=0).order_by(
+        TopTask.percent.asc()).order_by(
+        TopTask.progressid.asc()).all()
+    data = {"code": 0, "count": len(list), "data": [to_dict(item) for item in list], "msg": "ok"}
+    return jsonify(data)
