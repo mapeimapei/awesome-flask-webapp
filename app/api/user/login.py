@@ -50,7 +50,7 @@ def login():
     else:
         data = {
             "resultCode": "000000",
-            "message": "faild",
+            "message": "failed",
             "result": {}
         }
     return jsonify(data)

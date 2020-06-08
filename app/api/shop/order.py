@@ -28,12 +28,12 @@ def deleteProductInOrderDetails():
             obj["result"] = ""
         else:
             obj["resultCode"] = "00001"
-            obj["message"] = "faild"
+            obj["message"] = "failed"
             obj["result"] = "删除失败"
     except BaseException as e:
         print("error", type(e))
         obj["resultCode"] = "00000"
-        obj["message"] = "faild"
+        obj["message"] = "failed"
         obj["result"] = "%s" % e
 
     return jsonify(obj)
@@ -54,12 +54,12 @@ def getOrdersDetailsById():
             obj["result"] = result
         else:
             obj["resultCode"] = "00001"
-            obj["message"] = "faild"
+            obj["message"] = "failed"
             obj["result"] = ""
     except BaseException as e:
         print("error", type(e))
         obj["resultCode"] = "00000"
-        obj["message"] = "faild"
+        obj["message"] = "failed"
         obj["result"] = "%s" % e
 
     return jsonify(obj)
@@ -80,12 +80,12 @@ def deleteOrder():
             obj["result"] = ""
         else:
             obj["resultCode"] = "00001"
-            obj["message"] = "faild"
+            obj["message"] = "failed"
             obj["result"] = "删除失败"
     except BaseException as e:
         print("error", type(e))
         obj["resultCode"] = "00000"
-        obj["message"] = "faild"
+        obj["message"] = "failed"
         obj["result"] = "%s" % e
 
     return jsonify(obj)
@@ -106,11 +106,11 @@ def getOrderList(userid):
             obj["result"] = result
         else:
             obj["resultCode"] = "20000"
-            obj["message"] = "faild"
+            obj["message"] = "failed"
             obj["result"] = []
     except BaseException as e:
         obj["resultCode"] = "00000"
-        obj["message"] = "faild"
+        obj["message"] = "failed"
         obj["result"] = e
 
     return jsonify(obj)
@@ -140,12 +140,12 @@ def addOrder():
             obj["result"] = {"orderid": args["orderid"]}
         else:
             obj["resultCode"] = "00001"
-            obj["message"] = "faild"
+            obj["message"] = "failed"
             obj["result"] = "生成订单失败"
     except BaseException as e:
         print("error", type(e))
         obj["resultCode"] = "00000"
-        obj["message"] = "faild"
+        obj["message"] = "failed"
         obj["result"] = "%s" % e
 
     return jsonify(obj)

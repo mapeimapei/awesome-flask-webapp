@@ -30,7 +30,7 @@ def deleteSingle():
     else:
         data = {
             "resultCode": "000000",
-            "message": "faild",
+            "message": "failed",
             "result": "删除失败"
         }
     return jsonify(data)
@@ -55,7 +55,7 @@ def addSingle():
     else:
         data = {
             "resultCode": "000000",
-            "message": "faild",
+            "message": "failed",
             "result": "操作失败"
         }
     return jsonify(data)
@@ -76,7 +76,7 @@ def getSingleById(id):
     else:
         data = {
             "resultCode": "000000",
-            "message": "faild",
+            "message": "failed",
             "result": {}
         }
     return jsonify(data)
@@ -97,7 +97,7 @@ def getPosts():
     else:
         data = {
             "resultCode": "000000",
-            "message": "faild",
+            "message": "failed",
             "result": {}
         }
     return jsonify(data)

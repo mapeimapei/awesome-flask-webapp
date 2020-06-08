@@ -28,13 +28,13 @@ def deleteCart():
             obj["result"] = ""
         else:
             obj["resultCode"] = "00001"
-            obj["message"] = "faild"
+            obj["message"] = "failed"
             obj["result"] = "删除失败"
 
     except BaseException as e:
         print("error", type(e))
         obj["resultCode"] = "00000"
-        obj["message"] = "faild"
+        obj["message"] = "failed"
         obj["result"] = "%s" % e
 
     return jsonify(obj)
@@ -54,11 +54,11 @@ def getCartList(userid):
             obj["result"] = result
         else:
             obj["resultCode"] = "20000"
-            obj["message"] = "faild"
+            obj["message"] = "failed"
             obj["result"] = []
     except BaseException as e:
         obj["resultCode"] = "00000"
-        obj["message"] = "faild"
+        obj["message"] = "failed"
         obj["result"] = e
 
     return jsonify(obj)
@@ -79,12 +79,12 @@ def addCart():
             obj["result"] = ""
         else:
             obj["resultCode"] = "00001"
-            obj["message"] = "faild"
+            obj["message"] = "failed"
             obj["result"] = "添加失败"
     except BaseException as e:
         print("error", type(e))
         obj["resultCode"] = "00000"
-        obj["message"] = "faild"
+        obj["message"] = "failed"
         obj["result"] = "%s" % e
 
     return jsonify(obj)

@@ -26,7 +26,7 @@ def getProducts():
         obj["result"] = result
     else:
         obj["resultCode"] = "00000"
-        obj["message"] = "faild"
+        obj["message"] = "failed"
         obj["result"] = ""
 
     return jsonify(obj)
