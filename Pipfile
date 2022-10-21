@@ -1,28 +1,25 @@
 [[source]]
 name = "pypi"
-url = "https://pypi.org/simple"
+url = "https://mirrors.aliyun.com/pypi/simple"
 verify_ssl = true
 
 [dev-packages]
 
 [packages]
-falsk = "*"
-flask = "*"
+flask = "==1.1.4"
 flask-sqlalchemy = "*"
 flask-session = "*"
 pymysql = "*"
 requests = "*"
 beautifulsoup4 = "*"
 flask-cache = "*"
-flask-cookies = "*"
 openpyxl = "*"
-cymysql = "*"
-contextlib = "*"
-wtforms = "*"
-login-manager = "*"
 flask-login = "*"
 email-validator = "*"
 flask-httpauth = "*"
+markupsafe = "==2.0.1"
+werkzeug = "*"
+wtforms = "==2.3.3"
 
 [requires]
 python_version = "3.8"
