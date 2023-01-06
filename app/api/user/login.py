@@ -33,6 +33,7 @@ def generate_auth_token(user_id, name, scope=None):
 def login():
     data = {}
     args = request.json
+    print("11111111111")
     user = User.query.filter(or_(User.email == args['account'], User.name == args['account'])).first()
     if user and user.check_password(args['passwd']):
         # Token

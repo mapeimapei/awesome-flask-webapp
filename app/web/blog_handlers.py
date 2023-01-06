@@ -19,7 +19,7 @@ def page404():
 
 
 @web.route("/")
-@login_required
+#@login_required
 def index():
     # name = current_user.name
 

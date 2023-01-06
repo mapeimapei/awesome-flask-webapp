@@ -23,6 +23,8 @@ login-manager = "*"
 flask-login = "*"
 email-validator = "*"
 flask-httpauth = "*"
+python-dateutil = "*"
+dateutil = "*"
 
 [requires]
 python_version = "3.8"
